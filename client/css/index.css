@@ -1,3 +1,7 @@
+#app {
+    min-width: 600px
+}
+
 .productCard {
     height: 430px;
     margin: auto !important
@@ -5,4 +9,14 @@
 
 .productCard:hover {
     box-shadow: 0 0 5px 5px rgba(6, 133, 2, 0.7)
+}
+
+.navigationBar {
+    display: flex;
+    justify-content: flex-start
+}
+
+.navigationBarLogIn {
+    position: absolute;
+    right: 30px;
 }

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {logout} from '../store/auth'
-import {Grid, Menu} from 'semantic-ui-react'
+import {Menu} from 'semantic-ui-react'
 
 class Navbar extends React.Component {
   shouldComponentUpdate(nextProps) {
@@ -24,7 +24,7 @@ class Navbar extends React.Component {
           <p style={{display: 'inline-block', marginLeft: '20px'}}>
             Capgemini project
           </p>
-          <div className="ui inverted secondary menu" style={{display: 'flex', justifyContent: 'space-between'}}>
+          <div className="ui inverted secondary menu navigationBar">
 
             <Menu secondary>
                 <Menu.Item>
@@ -39,32 +39,32 @@ class Navbar extends React.Component {
                 </Menu.Item>
             </Menu>
 
-            <Menu secondary>
-                {isLoggedIn && (
-                    <Menu.Item>
-                        <Link to={`/users/${userId}/orders`} className="item">
-                            Orders
-                        </Link>
-                    </Menu.Item>
-                )}
-                <Menu.Item>
-                    {isLoggedIn ? (
-                        <a className="item" href="#" onClick={handleClick}>
-                            Logout
-                        </a>
-                    ) : (
-                        <Link to="/login" className="item">
-                            Login
-                        </Link>
-                    )}
-                </Menu.Item>
-                {!isLoggedIn && (
-                    <Menu.Item>
-                        <Link to="/signup" className="item">
-                            Sign Up
-                        </Link>
-                    </Menu.Item>
-                )}
+            <Menu secondary className="navigationBarLogIn">
+              {isLoggedIn && (
+                  <Menu.Item>
+                      <Link to={`/users/${userId}/orders`} className="item">
+                          Orders
+                      </Link>
+                  </Menu.Item>
+              )}
+              <Menu.Item>
+                  {isLoggedIn ? (
+                      <a className="item" href="#" onClick={handleClick}>
+                          Logout
+                      </a>
+                  ) : (
+                      <Link to="/login" className="item">
+                          Login
+                      </Link>
+                  )}
+              </Menu.Item>
+              {!isLoggedIn && (
+                  <Menu.Item>
+                      <Link to="/signup" className="item">
+                          Sign Up
+                      </Link>
+                  </Menu.Item>
+              )}
             </Menu>
 
             {/* <div className="nav-items">

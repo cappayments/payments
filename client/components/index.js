@@ -1,4 +1,5 @@
 export {default as Main} from './main'
 export {default as Navbar} from './navbar'
 export {default as Products} from './products'
+export {default as Confirmation} from './confirmation'
 export {Login, Signup} from './auth-form'
