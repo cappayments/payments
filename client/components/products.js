@@ -69,7 +69,7 @@ class Products extends Component {
         }
         return (
             <div>
-                <h2>List of Products</h2>
+                <h2>List of Product</h2>
                 {
                     this.state.dimmer && (
                         <Dimmer active>
