@@ -4,6 +4,7 @@ const morgan = require('morgan');
 const session = require('express-session');
 const bodyParser = require('body-parser');
 const passport = require('passport');
+const cookieParser = require('cookie-parser');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -26,8 +27,11 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(session({
   secret: process.env.SESSION_SECRET || 'SunnyB3aches', // or whatever you like
   resave: false,
-  saveUninitialized: true 
+  saveUninitialized: true ,
+  cookie: {maxAge: 60000*5}
 }));
+
+app.use(cookieParser())
 
 app.use(passport.initialize());
 app.use(passport.session());

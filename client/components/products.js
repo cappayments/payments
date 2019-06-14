@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import PaypalBtn from 'react-paypal-express-checkout'
 import StripeCheckout from 'react-stripe-checkout';
 import axios from 'axios'
-import {purchaseItem} from '../store'
+import {purchaseItem, purchaseItemPaypal} from '../store'
 import {Button, Card, Icon, Image, Dimmer, Loader, Popup, Grid, Header} from 'semantic-ui-react'
 
 class Products extends Component {
@@ -16,20 +16,19 @@ class Products extends Component {
         this.loader = this.loader.bind(this)
         this.onToken = this.onToken.bind(this)
         this.typeConvert = this.typeConvert.bind(this)
+        this.paypalPurchase = this.paypalPurchase.bind(this)
     }
-    
-    async purchaseItem(name, amount) {
+
+    async paypalPurchase(price) {
         this.loader()
-        // await this.props.purchasing(name, amount)
-        // window.open('https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token=EC-1XN93032SH883373D', '_self')
-        this.loader()
+        await this.props.paypal(price)
     }
 
     onToken(name, amount) {
         return async token => {
             this.loader()
             try {
-                const {data} = await axios.post('http://10.148.53.29:8086/charge', {
+                const {data} = await axios.post('http://10.148.53.30:8086/charge', {
                     amount,
                     stripeToken: token.id,
                     currency: 'USD'
@@ -94,7 +93,8 @@ class Products extends Component {
                                             <Grid.Column textAlign='center'>
                                                 <Header>Paypal</Header>
                                                 <p style={{width: "200px"}}></p>
-                                                <PaypalBtn client={client} currency={'USD'} total={1.00}/>
+                                                {/* <PaypalBtn client={client} currency={'USD'} total={1.00}/> */}
+                                                <Button color="yellow" onClick={()=>this.paypalPurchase(product.price)}>Pay with Paypal</Button>
                                             </Grid.Column>
                                             <Grid.Column textAlign='center'>
                                                 <Header>Credit Card</Header>
@@ -131,6 +131,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         purchasing: (name, price) => dispatch(purchaseItem(name, price)),
+        paypal: price => dispatch(purchaseItemPaypal(price)),
     }
 }
 
